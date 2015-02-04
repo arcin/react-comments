@@ -8,22 +8,30 @@ requirejs.config({
 })
 
 require([
-  // Bring in the commentBox module
+  /* Bring in the commentBox module */
   "components/commentBox"
 ], function(commentBox){
-  // `React.render()` will turn React elements (visual DOM) into their respective
-  // HTML elements (actual DOM)
-  //
-  // `React.render()` takes two arguments
-  //    1. A React element to be rendered.
-  //    2. The existing, raw html, to use as an anchor point. The React element
-  //       will be appended to this anchor point.
-  //    ** Note: Here, commentBox is React Component. This is why we are calling
-  //             `React.createElement()`. To conform to the expected input. If
-  //             commentBox were a React element, we would not need to make this
-  //             function call
+  /* stub data model */
+  var data = [
+    { author: "Pete Hunt", text: "This is one comment" },
+    { author: "Jordan Walke", text: "This is *another* comment" }
+  ]
+
+  /* `React.render()` will turn React elements (visual DOM) into their respective
+  *  HTML elements (actual DOM)
+  *
+  *  `React.render()` takes two arguments
+  *     1. A React element to be rendered.
+  *     2. The existing, raw html, to use as an anchor point. The React element
+  *        will be appended to this anchor point.
+  *     ** Note: Here, commentBox is React Component. This is why we are calling
+  *              `React.createElement()`. To conform to the expected input. If
+  *              commentBox were a React element, we would not need to make this 
+  *              function call
+  */
   React.render(
-    React.createElement(commentBox, null),
+    /* pass data to `CommentBox` component */
+    React.createElement(commentBox, { data: data }),
     document.getElementById('content')
   )
 })

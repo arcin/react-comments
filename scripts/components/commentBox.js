@@ -14,8 +14,13 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
         //
         // more info at: http://facebook.github.io/react/docs/glossary.html
         React.createElement( 'div', { className: "commentBox"},
-          React.createElement('h1', null, "LowFares"),
-          React.createElement(CommentList, null),
+          React.createElement('h1', null, "Comments"),
+
+          /*
+           * Pass the data model to `CommentList` based on `CommentBox`
+           * properties
+           */
+          React.createElement(CommentList, { data: this.props.data }),
           React.createElement(CommentForm, null)
         ))}})
 
