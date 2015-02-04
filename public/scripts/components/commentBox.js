@@ -8,6 +8,23 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
     getInitialState: function() {
       return { data: [] }
     },
+    /* This method gets called automatically by React whenever a component
+     * is rendered
+     */
+    componentDidMount: function(){
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json',
+        success: function(data){
+          /* This is the key to dynamic updates. The Component will update itself
+           * to reflect changes in the state whenever this method is called */
+          this.setState( {data: data} )
+        }.bind(this),
+        error: function(xhr, status, err){
+          console.error(this.props.url, status, err.toString())
+        }
+      })
+    },
     // Components have a render method. This method returns the Virtual DOM
     // tree associated with a Component.
     render: function(){
