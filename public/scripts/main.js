@@ -31,7 +31,8 @@ require([
   */
   React.render(
     /* Set a url con the `CommentBox` component; used to get data from th server*/
-    React.createElement(commentBox, { url: 'comments.json'}),
+    /* Poll the server every 2 seconds for new comments */
+    React.createElement(commentBox, { url: 'comments.json', pollInterval: 2000}),
     document.getElementById('content')
   )
 })

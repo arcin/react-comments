@@ -4,14 +4,10 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
   // `React.createClass()` creates a React type. These are also referred to as
   // `components`.
   var CommentBox = React.createClass({
-    /* Set up the initial state of this component*/
-    getInitialState: function() {
-      return { data: [] }
-    },
-    /* This method gets called automatically by React whenever a component
-     * is rendered
-     */
-    componentDidMount: function(){
+    /*
+     * Create a method that grabs the comments from our server
+     * */
+    loadCommentsFromServer:function(){
       $.ajax({
         url: this.props.url,
         dataType: 'json',
@@ -24,6 +20,21 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
           console.error(this.props.url, status, err.toString())
         }
       })
+    },
+
+    /* Set up the initial state of this component*/
+    getInitialState: function() {
+      return { data: [] }
+    },
+    /* This method gets called automatically by React whenever a component
+     * is rendered
+     */
+    componentDidMount: function(){
+      /*
+       * Load the comments on initial render, and then poll for new comments
+       */
+      this.loadCommentsFromServer()
+      setInterval(this.loadCommentsFromServer, this.props.pollInterval)
     },
     // Components have a render method. This method returns the Virtual DOM
     // tree associated with a Component.
