@@ -30,8 +30,8 @@ require([
   *              function call
   */
   React.render(
-    /* pass data to `CommentBox` component */
-    React.createElement(commentBox, { data: data }),
+    /* Set a url con the `CommentBox` component; used to get data from th server*/
+    React.createElement(commentBox, { url: 'comments.json'}),
     document.getElementById('content')
   )
 })

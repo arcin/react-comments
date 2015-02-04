@@ -4,6 +4,10 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
   // `React.createClass()` creates a React type. These are also referred to as
   // `components`.
   var CommentBox = React.createClass({
+    /* Set up the initial state of this component*/
+    getInitialState: function() {
+      return { data: [] }
+    },
     // Components have a render method. This method returns the Virtual DOM
     // tree associated with a Component.
     render: function(){
@@ -18,9 +22,9 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
 
           /*
            * Pass the data model to `CommentList` based on `CommentBox`
-           * properties
+           * state
            */
-          React.createElement(CommentList, { data: this.props.data }),
+          React.createElement(CommentList, { data: this.state.data }),
           React.createElement(CommentForm, null)
         ))}})
 
