@@ -1,3 +1,12 @@
+// Add some path configuration in requirejs
+requirejs.config({
+  baseUrl: 'scripts/',
+  paths: {
+    // Make use of a cdn the 'requirejs way'
+    showdown: 'http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min'
+  }
+})
+
 require([
   // Bring in the commentBox module
   "components/commentBox"
