@@ -33,6 +33,13 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
      * */
     handleCommentSubmit: function(comment){
       /*
+       * Here is some Optimistic Updating. Don't wait on the response
+       * to update the DOM. First update the DOM, then send the request.
+       * */
+      var comments = this.state.data
+      var newComments = comments.concat([comment])
+      this.setState({data: newComments})
+      /*
        * Submit the comment to the server. The comment data is given to us by
        * our child component. It bubbles up.
        * */
