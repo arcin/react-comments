@@ -11,6 +11,7 @@ define(function(){
 
       /* TODO: send request to the server */
 
+      this.props.onCommentSubmit( { author: author, text: text } )
       /*
        * `this.refs.author` references a React Component.
        * You can call `getDOMNode()` on a React Component

@@ -21,6 +21,35 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
         }
       })
     },
+    /*
+     * The `CommentBox` is the parent component, so it effectively owns the state
+     * of our `CommentForm` component. We need a way for the `CommentForm` component
+     * to notify the `CommentBox` when a comment is added.
+     *
+     * We'll give the child component this callback by binding it to the `CommentForm`s
+     * onCommentSubmit event.
+     *
+     * This method will be called whenever comments get submitted.
+     * */
+    handleCommentSubmit: function(comment){
+      /*
+       * Submit the comment to the server. The comment data is given to us by
+       * our child component. It bubbles up.
+       * */
+      $.ajax({
+        url: this.props.url,
+        dataType: 'json',
+        type: 'POST',
+        data: comment,
+        success: function(data) {
+          this.setState( {data: data} )
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString())
+        }.bind(this)
+      })
+
+    },
 
     /* Set up the initial state of this component*/
     getInitialState: function() {
@@ -52,8 +81,12 @@ define(['./commentList', './commentForm'], function(CommentList, CommentForm){
            * Pass the data model to `CommentList` based on `CommentBox`
            * state
            */
-          React.createElement(CommentList, { data: this.state.data }),
-          React.createElement(CommentForm, null)
+          React.createElement( CommentList, { data: this.state.data }),
+          /*
+           * Give our `CommentForm` child component the `handleCommentSubmit()`
+           * callback by binding it to a custom event. This is a common react pattern.
+           * */
+          React.createElement(CommentForm, { onCommentSubmit: this.handleCommentSubmit })
         ))}})
 
   // Export this component
